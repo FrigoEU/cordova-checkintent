@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-plugin-checkintent" version="0.0.1">
+    <name>CheckIntent</name>
+    <description>Cordova CheckIntent Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,checkIntent</keywords>
+    <js-module src="www/checkintent.js" name="checkIntent">
+        <clobbers target="checkIntent" />
+    </js-module>
+    <platform name="android">
+      <config-file target="config.xml" parent="/*">
+        <feature name="CheckIntent">
+          <param name="android-package" value="org.caresolutions.cordova.plugin.checkintent"/>
+        </feature>
+      </config-file>
+
+      <source-file src="src/android/CheckIntent.java" target-dir="src/org/caresolutions/cordova/plugin" />
+    </platform>
+</plugin>
