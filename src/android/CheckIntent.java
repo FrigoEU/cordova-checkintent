@@ -6,7 +6,11 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.content.pm;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.Intent;
+
+import java.util.List;
 
 /**
 * This class checks if an intent is supported by Android
@@ -16,13 +20,14 @@ public class CheckIntent extends CordovaPlugin {
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
       if (action.equals("checkIntent")) {
-        String intent = args.getString(0);
-        PackageManager manager = context.getPackageManager();
+        String intentStr = args.getString(0);
+        Intent intent = new Intent(intentStr);
+        PackageManager manager = this.cordova.getActivity().getPackageManager();
         List<ResolveInfo> infos = manager.queryIntentActivities(intent, 0);
         if (infos.size() > 0) {
-          callbackContext.success(true);
+          callbackContext.success("true");
         } else {
-          callbackContext.success(false);
+          callbackContext.success("false");
         }
         return true;
       }
