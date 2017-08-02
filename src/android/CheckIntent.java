@@ -21,9 +21,11 @@ public class CheckIntent extends CordovaPlugin {
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
       if (action.equals("checkIntent")) {
         String intentStr = args.getString(0);
+        String typeStr = args.getString(1);
         Intent intent = new Intent(intentStr);
+        intent.setType(typeStr);
         PackageManager manager = this.cordova.getActivity().getPackageManager();
-        List<ResolveInfo> infos = manager.queryIntentActivities(intent, 0);
+        List<ResolveInfo> infos = manager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         if (infos.size() > 0) {
           callbackContext.success("true");
         } else {
